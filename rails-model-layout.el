@@ -36,6 +36,10 @@
                                        rails-model-layout:switch-to-model
                                        :enable (and (not (eq (rails-core:buffer-type) :model))
                                                     (rails-core:model-exist-p (rails-core:current-model)))))
+        ([goto-spec]      '(menu-item "Go to Spec"
+                                       rails-model-layout:switch-to-spec
+                                       :enable (and (not (eq (rails-core:buffer-type) :spec))
+                                                    (rails-core:spec-exist-p (rails-core:current-model)))))
         ([goto-utest]      '(menu-item "Go to Unit Test"
                                        rails-model-layout:switch-to-unit-test
                                        :enable (and (not (eq (rails-core:buffer-type) :unit-test))
@@ -57,6 +61,7 @@
                                        :enable (rails-core:mailer-exist-p (rails-core:current-mailer)))))
       (define-keys map
         ((rails-key "m")         'rails-model-layout:switch-to-model)
+        ((rails-key "s")         'rails-model-layout:switch-to-spec)
         ((rails-key "u")         'rails-model-layout:switch-to-unit-test)
         ((rails-key "g")         'rails-model-layout:switch-to-migration)
         ((rails-key "c")         'rails-model-layout:switch-to-controller)
@@ -77,6 +82,7 @@
                  (:fixture (rails-core:fixture-file model))
                  (:unit-test (rails-core:unit-test-file item))
                  (:model (rails-core:model-file model))
+                 (:spec (rails-core:spec-file model))
                  (:migration (rails-core:migration-file-by-model model)))))
     (if item
         (let ((file (rails-core:file item)))
@@ -92,6 +98,7 @@
 (defun rails-model-layout:switch-to-fixture () (interactive) (rails-model-layout:switch-to :fixture))
 (defun rails-model-layout:switch-to-unit-test () (interactive) (rails-model-layout:switch-to :unit-test))
 (defun rails-model-layout:switch-to-model () (interactive) (rails-model-layout:switch-to :model))
+(defun rails-model-layout:switch-to-spec () (interactive) (rails-model-layout:switch-to :spec))
 (defun rails-model-layout:switch-to-migration () (interactive) (rails-model-layout:switch-to :migration))
 
 (defun rails-model-layout:menu ()

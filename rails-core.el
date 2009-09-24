@@ -151,6 +151,18 @@ it does not exist, ask to create it using QUESTION as a prompt."
   (when mailer
     (file-exists-p (rails-core:file (rails-core:mailer-file mailer)))))
 
+(defun rails-core:spec-file (spec-name)
+  "Return the spec file from the model name."
+  (when spec-name
+    (concat "spec/models/" (rails-core:file-by-class spec-name t) "_spec.rb")))
+
+(defun rails-core:spec-exist-p (spec-name)
+  "Return t if spec SPEC-NAME exist."
+  (when spec-name
+    (and (file-exists-p
+          (rails-core:file
+           (rails-core:spec-file spec-name))))))
+
 (defun rails-core:migration-file (migration-name)
   "Return the model file from the MIGRATION-NAME."
   (when migration-name
